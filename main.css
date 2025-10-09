@@ -1,0 +1,378 @@
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap');
+
+html, body {
+    height: 100%;
+    margin: 0;
+    overflow-y: auto;
+    font-family: Inconsolata, Arial;
+}
+
+h2 {
+    position: relative;
+    top: auto;
+    left: 50px;
+    color: rgb(0, 0, 0);
+    background-color: rgb(255, 255, 255, 0.75);
+    line-height: 1.4;
+    padding: 2px 8px;  
+    font-size: 20px;
+    font-family: Inconsolata, Arial;
+    font-weight: normal;
+    z-index: 10;
+    display: block;
+    margin-top: 80px;
+    width: fit-content;
+}
+
+h3 {
+    position: relative;
+    top: auto;
+    left: 50px;
+    color: rgb(0, 0, 0);
+    background-color: rgb(255, 255, 255, 0.75);
+    line-height: 1.4;
+    padding: 2px 8px;  
+    font-size: 20px;
+    font-family: Inconsolata, Arial;
+    font-weight: normal;
+    z-index: 10;
+    display: block;
+    margin-top: 20px;
+    width: fit-content;
+}
+
+#myCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+}
+
+#menuText {
+    position: relative;
+    top: 50px;
+    left: 50px;
+    color: rgb(0, 0, 0);
+    background-color: rgb(255, 255, 255);
+    line-height: .5;
+    padding: 2px 8px;  
+    font-size: 20px;
+    font-family: Inconsolata, Arial;
+    z-index: 10;
+    display: inline-block;
+}
+
+#menuText a {
+    text-decoration: none; 
+}
+
+#menuText a:hover,
+#menuText a:active {
+    text-decoration: none;
+}
+
+#header {
+    position: relative;
+    top: auto;
+    left: 50px;
+    color: rgb(0, 0, 0);
+    background-color: rgb(255, 255, 255, 0.75);
+    line-height: .5;
+    padding: 2px 8px;  
+    font-size: 20px;
+    font-family: Inconsolata, Arial;
+    font-weight: normal;
+    z-index: 10;
+    display: inline-block;
+}
+
+.headerB {
+    position: relative;
+    top: auto;
+    left: 15%;
+    color: rgb(0, 0, 0);
+    background-color: rgb(255, 255, 255, 0.75);
+    line-height: .5;
+    padding: 2px 8px;  
+    font-size: 20px;
+    font-family: Inconsolata, Arial;
+    font-weight: normal;
+    z-index: 10;
+    display: inline-block;
+}
+
+#text {
+    position: relative;
+    top: auto;
+    left: 50px;
+    color: rgb(0, 0, 0);
+    background-color: rgb(255, 255, 255, 0.85);
+    line-height: 1.4;
+    padding: 2px 8px;
+    font-size: 16px;
+    font-family: Inconsolata, Arial;
+    font-weight: normal;
+    z-index: 10;
+    display: inline-block;
+    margin-top: 0px; 
+    max-width: 800px;  
+}
+
+#bioText {
+    position: relative; 
+    top: auto;
+    right: auto;
+    transform: none; 
+    max-width: 800px;
+    margin: 40px 50px 20px auto;
+    color: rgb(0, 0, 0);
+    font-size: 16px;
+    background-color: rgba(255, 255, 255, 0.85);
+    font-family: Inconsolata, Arial, sans-serif;
+    text-align: right;
+    z-index: 10;
+    padding: 20px; 
+}
+
+#projectText {
+    position: relative; 
+    top: auto;
+    right: auto;
+    transform: none; 
+    max-width: 800px;
+    margin: 40px 50px 20px auto;
+    margin-top: -40px;
+    color: rgb(0, 0, 0);
+    font-size: 16px;
+    background-color: rgba(255, 255, 255, 0.85);
+    font-family: Inconsolata, Arial, sans-serif;
+    text-align: right;
+    z-index: 10;
+    padding: 20px; 
+}
+
+h1 {
+    font-size: 24px;
+    font-weight: normal;
+    font-style: normal;
+}
+
+a:link {
+    color: black;
+    text-decoration: underline;
+}
+
+a:visited {
+    color: black;
+    text-decoration: underline;
+}
+
+a:hover {
+    color: blue;
+    text-decoration: none;
+}
+
+a:active {
+    color: blue;
+    text-decoration: none;
+}
+
+.youtubeWrapper {
+    position: relative;
+    width: 70%;
+    max-width: 1280px;
+    margin: 40px auto;
+    aspect-ratio: 16 / 9; 
+    overflow: hidden;
+    z-index: 10;        
+}
+
+.youtubeWrapper iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+    position: absolute;  
+    top: 0;
+    left: 0;
+}
+
+.soundCloudWrapper {
+    position: relative;
+    width: 70%;
+    height: 200px;
+    max-width: 1280px;
+    margin: 40px auto;
+    aspect-ratio: 16 / 9; 
+    overflow: hidden;
+    z-index: 10;        
+}
+
+.soundCloudWrapper iframe {
+    width: 100%;
+    height: 200px;
+    border: 0;
+    display: block;
+    position: absolute;  
+    top: 0;
+    left: 0;
+}
+
+#interactiveBtn {
+    position: fixed;
+    top: 50px;
+    right: 50px;
+    z-index: 100;
+    padding: 12px 24px;
+    background: rgba(255,255,255,0.9);
+    color: black;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: Inconsolata, Arial;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+#interactiveBtn:hover {
+    background: rgba(255,255,255,1);
+    color: blue;
+}
+
+#interactiveBtn.active {
+    background: rgba(255,255,255,0.9);
+}
+
+@media (max-width: 768px) {
+    #menuText {
+        position: relative;      
+        top: auto;
+        left: auto;
+        margin: 20px auto;            
+        font-size: 20px;         
+        background-color: white;
+        line-height: .8;        
+        padding: 4px 8px;
+        z-index: 10;             
+    }
+
+    #bioText {
+        position: relative;      
+        top: auto;
+        right: auto;
+        transform: none;        
+        max-width: 90%;          
+        margin: 20px auto; 
+        margin-top: -20px;        
+        text-align: right;        
+        font-size: 18px;      
+        background-color: rgba(255, 255, 255, 0.75);
+        z-index: 10;            
+        padding: 10px 40px 10px 10px;
+    }
+
+     #projectText {
+        position: relative;      
+        top: auto;
+        right: auto;
+        transform: none;        
+        max-width: 90%;          
+        margin: 20px auto; 
+        margin-top: -20px;        
+        text-align: right;        
+        font-size: 18px;      
+        background-color: rgba(255, 255, 255, 0.75);
+        z-index: 10;            
+        padding: 10px 40px 10px 10px;
+    }
+
+    #text {
+        position: relative;      
+        top: auto;
+        left: auto;
+        margin: 20px auto;           
+        font-size: 18px;         
+        background-color: rgba(255, 255, 255, 0.75);
+        line-height: 1.2;        
+        padding: 4px 8px;
+        z-index: 10;             
+    }
+
+    #header {
+        position: relative;      
+        top: auto;
+        left: auto;
+        margin: 20px auto;   
+        margin-bottom: -40px;   
+        margin-top: -20px;      
+        font-size: 20px;         
+        background-color: rgba(255, 255, 255, 0.75);
+        line-height: 1.2;        
+        padding: 4px 8px;
+        z-index: 10;             
+    }
+
+    h2 {
+        left: 0px;
+        margin: 0px;
+        width: auto;
+    }
+
+    h3 {
+        left: 0px;
+        margin: 0px;
+        width: auto;
+    }
+
+    #interactiveBtn {
+        position: relative;
+        top: auto;
+        right: auto;
+        float: right;
+        margin: 20px 20px -60px 0;  /* Negative bottom margin to pull content up */
+        clear: right;
+        z-index: 100;
+        padding: 4px 8px;
+        background: rgba(255,255,255,0.9);
+        color: black;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-family: Inconsolata, Arial;
+        font-size: 16px;
+        font-weight: normal;
+        transition: background 0.3s;
+        line-height: .7;
+    }
+
+    .youtubeWrapper {
+        width: 95%;
+        margin: 20px auto;
+        z-index: 10;
+    }
+
+    .soundCloudWrapper {
+    position: relative;
+    width: 95%;
+    height: 100px;
+    max-width: 1280px;
+    margin: 40px auto;
+    aspect-ratio: 16 / 9; 
+    overflow: hidden;
+    z-index: 10;        
+    }
+
+    .soundCloudWrapper iframe {
+        width: 100%;
+        height: 400px;
+        border: 0;
+        display: block;
+        position: absolute;  
+        top: 0;
+        left: 0;
+    }
+}

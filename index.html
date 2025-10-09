@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Tom Gurin</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+   
+   <!-- import stylesheet -->
+   <link rel="stylesheet" href="/main.css" />
+
+   <script src="https://unpkg.com/hydra-synth"></script>
+
+</head>
+<body>
+    <button id="interactiveBtn">[Enter Cam Mode]</button>
+    <canvas id="myCanvas"></canvas>
+    <div id="menuText">
+     <h1><a href="/">Tom Gurin</a></h1>
+     <p>
+        <a href="/bio.html">/ Bio</a> 
+        <a href="/carillon.html">/ Carillon</a>  
+        <a href="/teaching.html">/ Teaching</a> 
+        <a href="/contact.html">/ Contact</a>
+        </p>
+    </div>
+    <div id="bioText">
+        <p>Tom Gurin is a composer, multimedia artist, and carillonist. He holds a master's degree in music composition and computer music from the Haute école de musique de Genève and a bachelor's degree in music from Yale University. He also holds diplomas from the École Normale de Musique de Paris and the Royal Carillon School in Belgium. He studied composition privately with Allain Gaussin in Paris. <br><br> He is a previous resident at the Cité internationale des arts in Paris, a Mortimer Hays-Brandeis Traveling Fellowship recipient, a joint Fulbright-Harriet Hale Woolley Scholar, and a Fellow of the Belgian-American Educational Foundation.</p>
+    </div>
+    <div id="header">
+        <p>Recent Projects</p>
+    </div>
+    <br>
+    <div id="text">
+        <a href="projects/welcome-to-the-channel.html">>Welcome to the Channel</a> (video game duet, 2025)
+        <br>
+        <a href="/projects/POV-your-connection-is-unstable.html">>POV: Your connection is unstable</a> (Zoom call duet, 2024)
+        <br>
+        <a href="/projects/scraped-shards.html">>Scraped Shards</a> (electroacoustic, 2025)
+        <br>
+        <a href="/projects/can-you-see-me-feedback-piano.html">>Can you see me?</a> (feedback piano, 2025)
+        <br>
+        <a href="/projects/PULSAR-23-jams.html">>PULSAR-23 jams</a> (modular synth, 2025)
+        <br>
+        <a href="/projects/foret-fossile.html">>Forêt fossile</a> (octet with electronics, 2024)
+        <br><br>
+        Older projects
+        <br>
+        <a href="/projects/corps-resonants.html">>Corps résonants</a> (noise installation, 2023)
+        <br>
+        <a href="/projects/sonnet.html">>Sonnet</a> (feedback and bari sax, 2023)
+        <br>
+        <a href="/projects/handle-with-care.html">>Handle with care</a> (feedback instruments, 2023)
+        <br>
+        <a href="/projects/cloches-et-boites.html">>Cloches et boîtes</a> (sound sculptures at DOC!, 2022)
+    </div>
+    <script>
+        let interactiveMode = false;
+        let hydra = null;
+        const canvas = document.getElementById("myCanvas");
+        const btn = document.getElementById("interactiveBtn");
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        function initHydra() {
+            resizeCanvas();
+            
+            hydra = new Hydra({
+                canvas: canvas,
+                detectAudio: false,
+            });    
+             
+            // Start with fallback video
+            s0.initVideo("https://upload.wikimedia.org/wikipedia/commons/6/6b/Dieta_digital_pode_ser_sa%C3%ADda_para_uso_seguro_da_internet%2C_diz_diretor_da_Safernet.webm");
+            
+            // Hydra visual code
+            src(s0)
+            .scrollY(.2)
+            .thresh(.4)
+            .luma(.125)
+            .blend(o0, 0.01)
+            .pixelate(() => Math.cos((time-15)*.2)*1000,() => Math.tan((time-15)*.001)*2000)
+            .out(o0);
+            
+            src(o0)
+            .blend(o1, 0.1)
+            .colorama(.1)
+            .out(o1);
+          
+            
+
+            c=document.createElement("canvas")
+            c.width=c.height=2500  
+            s1.init({src:c})
+            c=c.getContext("2d")
+            c.fillStyle="white"
+            c.fillRect(0,0,2000,2000)  
+            c.fillStyle="black"
+            c.font="100px inconsolata"  
+            c.textAlign="center"
+            c.fillText("Welcome to my websiteee", 1700, 2000);  
+            src(s1)
+            .pixelate(() => 1/(Math.sin(time*time) + (time/12) * Math.tan(Math.tan((5*time*time)/2) / (Math.cos(7*time) + 1/2)) + (time/6) * Math.tan(Math.sin(4*time) * Math.cos(3*time) + 1/10) * Math.sin(6*time))*500, 384)
+            .out(o2)
+
+            src(o2)
+            .layer(
+            src(o1)
+            .rotate(-Math.PI/2)
+            .saturate(0))
+            .out(o3);
+            
+            render(o3);
+        }
+
+        let camVideo = null;
+        let stream = null;
+
+        function enableInteractiveMode() {
+            camVideo = document.createElement("video");
+            camVideo.autoplay = true;
+            camVideo.playsInline = true;
+            camVideo.muted = true;
+            camVideo.style.display = "none"; 
+            document.body.appendChild(camVideo);
+
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(mediaStream => {
+                    stream = mediaStream;
+                    camVideo.srcObject = stream;
+                    camVideo.onloadedmetadata = () => {
+                        camVideo.play();
+                        s0.init({ src: camVideo });
+                        console.log("Camera initialized in Hydra.");
+                        btn.textContent = "[Exit Cam Mode]";
+                        btn.classList.add("active");
+                        interactiveMode = true;
+                    };
+                })
+                .catch(err => {
+                    console.warn("Camera not available:", err);
+                    btn.textContent = "[Camera Not Available]";
+                    setTimeout(() => {
+                        btn.textContent = "[Enter Cam Mode]";
+                    }, 2000);
+                });
+        }
+
+        function disableInteractiveMode() {
+            if (stream) {
+                stream.getTracks().forEach(track => track.stop());
+                stream = null;
+            }
+            if (camVideo) {
+                camVideo.srcObject = null;
+                camVideo.remove();
+                camVideo = null;
+            }
+            
+            s0.initVideo("https://upload.wikimedia.org/wikipedia/commons/6/6b/Dieta_digital_pode_ser_sa%C3%ADda_para_uso_seguro_da_internet%2C_diz_diretor_da_Safernet.webm");
+            
+            btn.textContent = "[Enter Cam Mode]";
+            btn.classList.remove("active");
+            interactiveMode = false;
+            console.log("Interactive mode disabled.");
+        }
+
+        btn.addEventListener('click', () => {
+            if (!interactiveMode) {
+                enableInteractiveMode();
+            } else {
+                disableInteractiveMode();
+            }
+        });
+
+
+        window.onload = initHydra;
+    </script>
+</body>
+</html>

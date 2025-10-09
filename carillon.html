@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Tom Gurin</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+   <!-- import stylesheet -->
+   <link rel="stylesheet" href="/main.css" />
+
+   <!-- import the latest version of hydra synth-->
+   <script src="https://unpkg.com/hydra-synth"></script>
+
+</head>
+<body>
+    <button id="interactiveBtn">[Enter Cam Mode]</button>
+    <canvas id="myCanvas" style="z-index:0"></canvas>
+    <div id="menuText">
+     <h1><a href="/">Tom Gurin</a></h1>
+     <p>
+        <a href="/bio.html">/ Bio</a> 
+        <a href="/carillon.html">/ Carillon</a>  
+        <a href="/teaching.html">/ Teaching</a> 
+        <a href="/contact.html">/ Contact</a>
+        </p>
+    </div>
+     <div id="bioText">
+        <p>Carillon: a musical instrument composed of 23 or more tuned bronze bells connected to a double keyboard that allows expression through variation of touch via manual batons and foot pedals.</p>
+        <p>Gurin served as Duke University Chapel Carillonneur from 2019-2021. In 2021, he consulted on and performed the dedicatory recital for the new carillon at North Carolina State University.
+        </p>
+        <p>He won first prize in the 2022 Perpignan (France) Carillon Composition Competition. Several of his carillon works have been published by the Guild of Carillonneurs in North America and by Beiaardcentrum Nederland.
+        </p>
+        <p>Gurin graduated “With Great Distinction” from the Royal Carillon School of Belgium as a United States Fellow of the Belgian American Educational Foundation. He co-chaired the Yale University Guild of Carillonneurs and has been a member of the Guild of Carillonneurs in North America since 2017.</p>
+        <p>For guest recitals and compositions: <a href=/contact.html>contact him online.</a></p>
+    </div>
+    <br>
+    <div class="youtubeWrapper">
+    <iframe
+        src="https://www.youtube.com/embed/UiB6ggaI0JQ"
+        allowfullscreen>
+    </iframe>
+    </div>
+    <div class="youtubeWrapper">
+    <iframe
+        src="https://www.youtube.com/embed/sGTO8hSMmWI">
+    </iframe>
+    </div>
+     <div class="youtubeWrapper">
+    <iframe
+        src="https://www.youtube.com/embed/JdtE0qw442Q">
+    </iframe>
+    </div>
+    <div class="headerB">
+    <p>Selected carillon compositions</p>
+    </div>
+    <div class="soundCloudWrapper">
+        <iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2179994427&color=%23000000&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/tom-gurin-160968994" title="Tom Gurin" target="_blank" style="color: #cccccc; text-decoration: none;">Tom Gurin</a> · <a href="https://soundcloud.com/tom-gurin-160968994/all-frequencies" title="All Frequencies" target="_blank" style="color: #cccccc; text-decoration: none;">All Frequencies</a></div>
+    </div>
+     <div class="soundCloudWrapper">
+        <iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2179994007&color=%23000000&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/tom-gurin-160968994" title="Tom Gurin" target="_blank" style="color: #cccccc; text-decoration: none;">Tom Gurin</a> · <a href="https://soundcloud.com/tom-gurin-160968994/at-rain-starred-windows" title="At Rain-Starred Windows" target="_blank" style="color: #cccccc; text-decoration: none;">At Rain-Starred Windows</a></div>
+    </div>
+     <div class="soundCloudWrapper">
+        <iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2179996071&color=%23000000&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/tom-gurin-160968994" title="Tom Gurin" target="_blank" style="color: #cccccc; text-decoration: none;">Tom Gurin</a> · <a href="https://soundcloud.com/tom-gurin-160968994/new-angelus-perpignan-automatic-play" title="New Angélus - Perpignan (automatic play)" target="_blank" style="color: #cccccc; text-decoration: none;">New Angélus - Perpignan (automatic play)</a></div>
+    </div>
+    <script>
+        let interactiveMode = false;
+        let hydra = null;
+        const canvas = document.getElementById("myCanvas");
+        const btn = document.getElementById("interactiveBtn");
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        function initHydra() {
+            resizeCanvas();
+            
+            hydra = new Hydra({
+                canvas: canvas,
+                detectAudio: false,
+            });    
+             
+            // Start with fallback video
+            s0.initVideo("https://upload.wikimedia.org/wikipedia/commons/6/6b/Dieta_digital_pode_ser_sa%C3%ADda_para_uso_seguro_da_internet%2C_diz_diretor_da_Safernet.webm");
+            
+            // Hydra visual code 
+
+           src(s0)
+            .thresh(.7) //good for normal lighting
+            .luma(.125)
+            .blend(o0, 0.01)
+            .pixelate(() => Math.cos((time-30)*.02)*500,() => Math.tan((time-30)*.0001)*1000)
+            .out(o0);
+            
+            src(o0)
+            .blend(o1, 0.1)
+            .colorama(.1)
+            .out(o1);
+          
+            solid(.1,.1,.1,0)
+            .layer(
+            src(o1)
+            .rotate(0)
+            .saturate(0))
+            .out(o2);
+            
+            render(o2);
+        };
+            
+        let camVideo = null;
+        let stream = null;
+
+        function enableInteractiveMode() {
+            camVideo = document.createElement("video");
+            camVideo.autoplay = true;
+            camVideo.playsInline = true;
+            camVideo.muted = true;
+            camVideo.style.display = "none"; 
+            document.body.appendChild(camVideo);
+
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(mediaStream => {
+                    stream = mediaStream;
+                    camVideo.srcObject = stream;
+                    camVideo.onloadedmetadata = () => {
+                        camVideo.play();
+                        s0.init({ src: camVideo });
+                        console.log("Camera initialized in Hydra.");
+                        btn.textContent = "[Exit Cam Mode]";
+                        btn.classList.add("active");
+                        interactiveMode = true;
+                    };
+                })
+                .catch(err => {
+                    console.warn("Camera not available:", err);
+                    btn.textContent = "[Camera Not Available]";
+                    setTimeout(() => {
+                        btn.textContent = "[Enter Cam Mode]";
+                    }, 2000);
+                });
+        }
+
+        function disableInteractiveMode() {
+            if (stream) {
+                stream.getTracks().forEach(track => track.stop());
+                stream = null;
+            }
+            if (camVideo) {
+                camVideo.srcObject = null;
+                camVideo.remove();
+                camVideo = null;
+            }
+            
+            s0.initVideo("https://upload.wikimedia.org/wikipedia/commons/6/6b/Dieta_digital_pode_ser_sa%C3%ADda_para_uso_seguro_da_internet%2C_diz_diretor_da_Safernet.webm");
+            
+            btn.textContent = "[Enter Cam Mode]";
+            btn.classList.remove("active");
+            interactiveMode = false;
+            console.log("Interactive mode disabled.");
+        }
+
+        btn.addEventListener('click', () => {
+            if (!interactiveMode) {
+                enableInteractiveMode();
+            } else {
+                disableInteractiveMode();
+            }
+        });
+
+        window.onload = initHydra;
+    </script>
+</body>
+</html>

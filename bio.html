@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Tom Gurin</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+   <!-- import stylesheet -->
+   <link rel="stylesheet" href="/main.css" />
+
+   <!-- import the latest version of hydra synth-->
+   <script src="https://unpkg.com/hydra-synth"></script>
+
+</head>
+<body>
+    <button id="interactiveBtn">[Enter Cam Mode]</button>
+    <canvas id="myCanvas" style="z-index:0"></canvas>
+    <div id="menuText">
+     <h1><a href="/">Tom Gurin</a></h1>
+     <p>
+        <a href="/bio.html">/ Bio</a> 
+        <a href="/carillon.html">/ Carillon</a>  
+        <a href="/teaching.html">/ Teaching</a> 
+        <a href="/contact.html">/ Contact</a>
+        </p>
+    </div>
+    <div id="bioText">
+        <p><a href="https://docs.google.com/document/d/1evQISXhnfDllHLxyS_fTYrl7jo3SWo-datX12OsO300/edit?usp=sharing" target="_blank" rel="noopener">Curriculum vitae</a> (français)</p>
+        <p><a href="/">Tom Gurin</a> is a composer, multimedia artist, and carillonist. He holds a master's degree in music composition and computer music from the Haute école de musique de Genève and a bachelor's degree in music from Yale University. He also holds diplomas from the École Normale de Musique de Paris and the Royal Carillon School in Belgium. He studied composition privately with Allain Gaussin in Paris.</p>
+        He is a previous resident at the <a href="https://www.citedesartsparis.net/fr/tom-gurin" target="_blank" rel="noopener">Cité internationale des arts</a> in Paris, a <a href="https://leenaards.ch/prix-tremplin/" target="_blank" rel="noopener">Tremplin Leenaards / HEM Prize</a> winner, a Mortimer Hays-Brandeis Traveling Fellowship recipient, a joint Fulbright-Harriet Hale Woolley Scholar, and a Fellow of the Belgian-American Educational Foundation.</p>
+        <p>Tom has presented his work in cabaret shows, at art galleries such as the DOC artspace, and at contemporary music festivals such as the Archipel Festival in Geneva, IlSUONO Contemporary Music Week in Italy, and the American Conservatory program in Fontainebleau, where he received the Marion Tournon-Branley prize. In addition, he participated in the <a href="http://www.highscorefestival.com/" target="_blank" rel="noopener noreferrer">highSCORE New Music Festival</a> in Pavia, Italy, and the <a href="https://www.imaniwindsfestival.com/" target="_blank" rel="noopener noreferrer">Imani Winds Chamber Music Festival</a> at Mannes School of Music in New York City, where he was an Emerging Composer Fellow. The <a href="https://yso.yalecollege.yale.edu/" target="_blank" rel="noopener noreferrer">Yale Symphony Orchestra</a>, the National Youth Orchestra of China, the <a href="http://sonus.foundation/en/page/show/home" target="_blank" rel="noopener">Sonus Foundation for New Music and Contemporary Performing Arts</a>, and other ensembles around the world have performed his compositions.</p>
+        <p>Gurin also composes music for the <a href="https://tomgurin.com/carillon/">carillon</a>. He won first prize in the 2022 Perpignan (France) Carillon Composition Contest, then composed the new Angélus melodies for the Perpignan cathedral (2023), as well as a carillon composition celebrating its 700 year anniversary (2024). His carillon music is published by Beiaardcentrum Nederland and by the Guild of Carillonneurs in North America.</p>
+        <p>Gurin served as Duke University Chapel <a href="https://tomgurin.com/carillon/">Carillonneur</a> until summer 2021, when he accepted a Fulbright award to study in Paris. In May 2021, he performed the dedicatory recital of the new carillon at North Carolina State University—the first traditionally-made American carillon in over fifty years. He has been a professional member of the Guild of Carillonneurs in North America since 2017. He has performed on over one hundred carillons around the world and is a frequent guest recitalist in Europe. During his undergraduate studies in music at Yale, he was co-chair of the student-led <a href="http://yalecarillon.org/" target="_blank" rel="noopener noreferrer">Yale University Guild of Carillonneurs</a>.</p>
+        <p><a href="/contact.html">Contact Tom Gurin online</a></p>
+    </div>
+    <script>
+        let interactiveMode = false;
+        let hydra = null;
+        const canvas = document.getElementById("myCanvas");
+        const btn = document.getElementById("interactiveBtn");
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        function initHydra() {
+            resizeCanvas();
+            
+            hydra = new Hydra({
+                canvas: canvas,
+                detectAudio: false,
+            });    
+             
+            // Start with fallback video
+            s0.initVideo("https://upload.wikimedia.org/wikipedia/commons/6/6b/Dieta_digital_pode_ser_sa%C3%ADda_para_uso_seguro_da_internet%2C_diz_diretor_da_Safernet.webm");
+            
+            // Hydra visual code
+            src(s0)
+            .thresh(.7)
+            .luma(.125)
+            .blend(o0, 0.01)
+            .pixelate(() => Math.cos((time-30)*.02)*500,() => Math.tan((time-30)*.0001)*1000)
+        //    .out(o0);
+            
+         //   src(o0)
+            .blend(o1, 0.1)
+            .colorama(.1)
+            .out(o1);
+          
+            src(s0)
+            .scrollX(-.6,0)
+            .thresh(.6)
+            .pixelate(200, 100)
+            .modulate(o3, 0.03)
+            .invert(1)   
+            .out(o2);
+            
+            src(o2)
+            .layer(
+            src(o1)
+            .rotate(Math.PI)
+            .saturate(0))
+            .out(o3);
+            
+            render(o3);
+        }
+
+        let camVideo = null;
+        let stream = null;
+
+        function enableInteractiveMode() {
+            camVideo = document.createElement("video");
+            camVideo.autoplay = true;
+            camVideo.playsInline = true;
+            camVideo.muted = true;
+            camVideo.style.display = "none"; 
+            document.body.appendChild(camVideo);
+
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(mediaStream => {
+                    stream = mediaStream;
+                    camVideo.srcObject = stream;
+                    camVideo.onloadedmetadata = () => {
+                        camVideo.play();
+                        s0.init({ src: camVideo });
+                        console.log("Camera initialized in Hydra.");
+                        btn.textContent = "[Exit Cam Mode]";
+                        btn.classList.add("active");
+                        interactiveMode = true;
+                    };
+                })
+                .catch(err => {
+                    console.warn("Camera not available:", err);
+                    btn.textContent = "[Camera Not Available]";
+                    setTimeout(() => {
+                        btn.textContent = "[Enter Cam Mode]";
+                    }, 2000);
+                });
+        }
+
+        function disableInteractiveMode() {
+            if (stream) {
+                stream.getTracks().forEach(track => track.stop());
+                stream = null;
+            }
+            if (camVideo) {
+                camVideo.srcObject = null;
+                camVideo.remove();
+                camVideo = null;
+            }
+            
+            s0.initVideo("https://upload.wikimedia.org/wikipedia/commons/6/6b/Dieta_digital_pode_ser_sa%C3%ADda_para_uso_seguro_da_internet%2C_diz_diretor_da_Safernet.webm");
+            
+            btn.textContent = "[Enter Cam Mode]";
+            btn.classList.remove("active");
+            interactiveMode = false;
+            console.log("Interactive mode disabled.");
+        }
+
+        btn.addEventListener('click', () => {
+            if (!interactiveMode) {
+                enableInteractiveMode();
+            } else {
+                disableInteractiveMode();
+            }
+        });
+
+        window.onload = initHydra;
+    </script>
+</body>
+</html>
