@@ -83,10 +83,11 @@
             // Hydra visual code
             src(s0)
             .scrollY(.2)
-            .thresh(.4)
+          //  .scrollX(.1)
+            .thresh(.6)
             .luma(.125)
             .blend(o0, 0.01)
-            .pixelate(() => Math.cos((time-15)*.2)*1000,() => Math.tan((time-15)*.001)*2000)
+            .pixelate(() => Math.cos((time-30)*.2)*1000,() => Math.tan((time-30)*.001)*2000)
             .out(o0);
             
             src(o0)
@@ -94,8 +95,6 @@
             .colorama(.1)
             .out(o1);
           
-            
-
             c=document.createElement("canvas")
             c.width=c.height=2500  
             s1.init({src:c})
@@ -105,7 +104,7 @@
             c.fillStyle="black"
             c.font="100px inconsolata"  
             c.textAlign="center"
-            c.fillText("Welcome to my websiteee", 1700, 2000);  
+            c.fillText("Welcome to my website", 1700, 2000);  
             src(s1)
             .pixelate(() => 1/(Math.sin(time*time) + (time/12) * Math.tan(Math.tan((5*time*time)/2) / (Math.cos(7*time) + 1/2)) + (time/6) * Math.tan(Math.sin(4*time) * Math.cos(3*time) + 1/10) * Math.sin(6*time))*500, 384)
             .out(o2)
@@ -124,6 +123,7 @@
         let stream = null;
 
         function enableInteractiveMode() {
+            localStorage.setItem('camModeActive', 'true');
             camVideo = document.createElement("video");
             camVideo.autoplay = true;
             camVideo.playsInline = true;
@@ -154,6 +154,7 @@
         }
 
         function disableInteractiveMode() {
+            localStorage.removeItem('camModeActive');
             if (stream) {
                 stream.getTracks().forEach(track => track.stop());
                 stream = null;
@@ -181,7 +182,14 @@
         });
 
 
-        window.onload = initHydra;
+       window.onload = () => {
+            initHydra();
+            
+            // Auto-enable cam mode if it was active
+            if (localStorage.getItem('camModeActive') === 'true') {
+                enableInteractiveMode();
+            }
+        };
     </script>
 </body>
 </html>

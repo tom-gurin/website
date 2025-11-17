@@ -91,6 +91,7 @@
         let stream = null;
 
         function enableInteractiveMode() {
+            localStorage.setItem('camModeActive', 'true');
             camVideo = document.createElement("video");
             camVideo.autoplay = true;
             camVideo.playsInline = true;
@@ -121,6 +122,7 @@
         }
 
         function disableInteractiveMode() {
+            localStorage.removeItem('camModeActive');
             if (stream) {
                 stream.getTracks().forEach(track => track.stop());
                 stream = null;
@@ -147,7 +149,14 @@
             }
         });
 
-        window.onload = initHydra;
+        window.onload = () => {
+            initHydra();
+            
+            // Auto-enable cam mode if it was active
+            if (localStorage.getItem('camModeActive') === 'true') {
+                enableInteractiveMode();
+            }
+        };
     </script>
 </body>
 </html>
