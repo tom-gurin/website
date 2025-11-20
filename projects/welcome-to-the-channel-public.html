@@ -6,56 +6,41 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-   
    <!-- import stylesheet -->
-   <link rel="stylesheet" href="main.css" />
+   <link rel="stylesheet" href="../main.css" />
 
+   <!-- import the latest version of hydra synth-->
    <script src="https://unpkg.com/hydra-synth"></script>
 
 </head>
 <body>
     <button id="interactiveBtn">[Enter Cam Mode]</button>
-    <canvas id="myCanvas"></canvas>
+    <canvas id="myCanvas" style="z-index:0"></canvas>
     <div id="menuText">
-     <h1><a href="index.html">Tom Gurin</a></h1>
+     <h1><a href="../index.html">Tom Gurin</a></h1>
      <p>
-        <a href="bio.html">/ Bio</a> 
-        <a href="carillon.html">/ Carillon</a>  
-        <a href="music-composition-lessons.html">/ Teaching</a> 
-        <a href="contact.html">/ Contact</a>
+        <a href="../bio.html">/ Bio</a> 
+        <a href="../carillon.html">/ Carillon</a>  
+        <a href="../music-composition-lessons.html">/ Teaching</a> 
+        <a href="../contact.html">/ Contact</a>
         </p>
     </div>
-    <div id="bioText">
-        <p>Tom Gurin is a composer, multimedia artist, and carillonist. He holds a master's degree in music composition and computer music from the Haute école de musique de Genève and a bachelor's degree in music from Yale University. He also holds diplomas from the École Normale de Musique de Paris and the Royal Carillon School in Belgium. He studied composition privately with Allain Gaussin in Paris. <br><br> He is a previous resident at the Cité internationale des arts in Paris, a Tremplin Leenaards / HEM Prize winner, a Mortimer Hays-Brandeis Traveling Fellowship recipient, a Fulbright Scholar, a Harriet Hale Woolley Scholar, and a Fellow of the Belgian-American Educational Foundation.</p>
-    </div>
-    <div id="header">
-        <p>Recent Projects</p>
-    </div>
-    <br>
-    <div id="text">
-    <a href="projects/welcome-to-the-channel-public.html">>Welcome to the Channel</a> (video game / Twitch.tv duet, 2025)
-        <br>
-        <a href="projects/POV-your-connection-is-unstable.html">>POV: Your connection is unstable</a> (Zoom call duet, 2024)
-        <br>
-        <a href="projects/scraped-shards.html">>Scraped Shards</a> (electroacoustic, 2025)
-        <br>
-        <a href="projects/can-you-see-me-feedback-piano.html">>Can you see me?</a> (feedback piano, 2025)
-        <br>
-        <a href="projects/PULSAR-23-jams.html">>PULSAR-23 jams</a> (modular synth, 2025)
-        <br>
-        <a href="projects/niemandsland-live-sets.html">>Niemandsland</a> (game/glitch sets, 2025)
-        <br>
-        <a href="projects/foret-fossile.html">>Forêt fossile</a> (octet with electronics, 2024)
+    <br><br><br><br>
+    <div id="projectText">
+        <p>
+        Performed at the Haute école de musique de Genève June 13, 2025 (Recording forthcoming)        
         <br><br>
-        Older projects
-        <br>
-        <a href="projects/corps-resonants.html">>Corps résonants</a> (noise installation, 2023)
-        <br>
-        <a href="projects/sonnet.html">>Sonnet</a> (feedback and bari sax, 2023)
-        <br>
-        <a href="projects/handle-with-care.html">>Handle with care</a> (feedback instruments, 2023)
-        <br>
-        <a href="projects/cloches-et-boites.html">>Cloches et boîtes</a> (sound sculptures at DOC!, 2022)
+        Sam Alvarez, saxophone. Hilario Flores-Coni, gamepad. David Poissonnier, sound engineer.
+        <br><br>
+        PLAY GAME ONLINE: <a target="_blank" rel="noopener noreferrer" href="https://threed-tl7b.onrender.com">https://threed-tl7b.onrender.com</a> <strong>(browser-based, desktop only; no Safari support)</strong>
+        <br><br>
+        CODE: <a target="_blank" rel="noopener noreferrer" href="https://github.com/tom-gurin/welcome-to-the-channel/tree/main">https://github.com/tom-gurin/welcome-to-the-channel/tree/main</a>
+        </p>
+    </div>
+     <div class="gameWrapper">
+    <iframe
+        src="https://threed-tl7b.onrender.com" frameborder="0" allow="camera; microphone" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+    </iframe>
     </div>
     <script>
         let interactiveMode = false;
@@ -81,12 +66,10 @@
             
             // Hydra visual code
             src(s0)
-            .scrollY(.2)
-          //  .scrollX(.1)
-            .thresh(.6)
+            .thresh(.7)
             .luma(.125)
             .blend(o0, 0.01)
-            .pixelate(() => Math.cos((time-30)*.2)*1000,() => Math.tan((time-30)*.001)*2000)
+            .pixelate(() => Math.cos((time-30)*.02)*500,() => Math.tan((time-30)*.0001)*1000)
             .out(o0);
             
             src(o0)
@@ -94,28 +77,14 @@
             .colorama(.1)
             .out(o1);
           
-            c=document.createElement("canvas")
-            c.width=c.height=2500  
-            s1.init({src:c})
-            c=c.getContext("2d")
-            c.fillStyle="white"
-            c.fillRect(0,0,2000,2000)  
-            c.fillStyle="black"
-            c.font="100px inconsolata"  
-            c.textAlign="center"
-            c.fillText("Welcome to my website", 1700, 2000);  
-            src(s1)
-            .pixelate(() => 1/(Math.sin(time*time) + (time/12) * Math.tan(Math.tan((5*time*time)/2) / (Math.cos(7*time) + 1/2)) + (time/6) * Math.tan(Math.sin(4*time) * Math.cos(3*time) + 1/10) * Math.sin(6*time))*500, 384)
-            .out(o2)
-
-            src(o2)
+            solid(.1,.1,.1,0)
             .layer(
             src(o1)
-            .rotate(-Math.PI/2)
+            .rotate(Math.PI)
             .saturate(0))
-            .out(o3);
+            .out(o2);
             
-            render(o3);
+            render(o2);
         }
 
         let camVideo = null;
@@ -180,8 +149,7 @@
             }
         });
 
-
-       window.onload = () => {
+        window.onload = () => {
             initHydra();
             
             // Auto-enable cam mode if it was active
