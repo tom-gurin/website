@@ -112,7 +112,7 @@ h3 {
     background-color: rgb(255, 255, 255, 0.85);
     line-height: 1.4;
     padding: 2px 8px;
-    font-size: 16px;
+    font-size: 18px;
     font-family: Inconsolata, Arial;
     font-weight: normal;
     z-index: 10;
@@ -129,7 +129,7 @@ h3 {
     max-width: 800px;
     margin: 40px 50px 20px auto;
     color: rgb(0, 0, 0);
-    font-size: 16px;
+    font-size: 18px;
     background-color: rgba(255, 255, 255, .85);
     font-family: Inconsolata, Arial, sans-serif;
     text-align: right;
@@ -146,7 +146,7 @@ h3 {
     margin: 40px 50px 20px auto;
     margin-top: -40px;
     color: rgb(0, 0, 0);
-    font-size: 16px;
+    font-size: 18px;
     background-color: rgba(255, 255, 255, 0.85);
     font-family: Inconsolata, Arial, sans-serif;
     text-align: right;
@@ -254,7 +254,7 @@ a:active {
     border-radius: 4px;
     cursor: pointer;
     font-family: Inconsolata, Arial;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: bold;
     transition: background 0.3s;
 }
@@ -364,7 +364,7 @@ a:active {
         border-radius: 4px;
         cursor: pointer;
         font-family: Inconsolata, Arial;
-        font-size: 16px;
+        font-size: 18px;
         font-weight: normal;
         transition: background 0.3s;
         line-height: .7;
