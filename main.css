@@ -92,7 +92,7 @@ h3 {
 .headerB {
     position: relative;
     top: auto;
-    left: 15%;
+    left: 14.5%;
     color: rgb(0, 0, 0);
     background-color: rgb(255, 255, 255, 0.75);
     line-height: .5;
@@ -224,7 +224,7 @@ a:active {
 .soundCloudWrapper {
     position: relative;
     width: 70%;
-    height: 200px;
+    height: 150px;
     max-width: 1280px;
     margin: 40px auto;
     aspect-ratio: 16 / 9; 
@@ -380,9 +380,24 @@ a:active {
     position: relative;
     width: 95%;
     max-width: 1280px;
-    margin: 40px auto;
+    margin: 10px auto;
     z-index: 10;        
     }
+
+    .headerB {
+    position: relative;
+    top: auto;
+    left: 1%;
+    color: rgb(0, 0, 0);
+    background-color: rgb(255, 255, 255, 0.75);
+    line-height: .5;
+    padding: 2px 8px;  
+    font-size: 20px;
+    font-family: Inconsolata, Arial;
+    font-weight: normal;
+    z-index: 10;
+    display: inline-block;
+}
 
     .soundCloudWrapper iframe {
         width: 100%;
