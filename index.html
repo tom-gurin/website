@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Tom Gurin</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+   <link rel="stylesheet" href="main.css" />
+   <script src="https://unpkg.com/hydra-synth"></script>
+
+</head>
+<body>
+    <button id="interactiveBtn">[Enter Cam Mode]</button>
+    <canvas id="myCanvas"></canvas>
+    <div id="menu-container"></div>
+    <script src="menu.js"></script>
+    <div id="bioText">
+        <p>Tom Gurin is a composer, multimedia artist, and carillonist. He holds a master's degree in music composition and computer music from the Haute école de musique de Genève and a bachelor's degree in composition from Yale University. He also holds diplomas from the École Normale de Musique de Paris and the Royal Carillon School in Belgium. He studied composition privately with Allain Gaussin in Paris. <br><br> He is a previous resident at the Cité internationale des arts in Paris, a Tremplin Leenaards / HEM Prize winner, a Mortimer Hays-Brandeis Traveling Fellowship recipient, a Fulbright Scholar, a Harriet Hale Woolley Scholar, and a Fellow of the Belgian-American Educational Foundation.</p>
+    </div>
+    <div id="header">
+        <p>Recent Projects</p>
+    </div>
+    <br>
+    <div id="text">
+    <a href="projects/welcome-to-the-channel.html"><strong>>Welcome to the Channel</strong></a> (video game / Twitch.tv duet, 2025)
+        <br>
+        <a href="projects/POV-your-connection-is-unstable.html"><strong>>POV: Your connection is unstable</strong></a> (Zoom call duet, 2024)
+        <br>
+        <a href="projects/scraped-shards.html"><strong>>Scraped Shards</strong></a> (electroacoustic, 2025)
+        <br>
+        <a href="projects/can-you-see-me-feedback-piano.html"><strong>>Can you see me?</strong></a> (feedback piano, 2025)
+        <br>
+        <a href="projects/PULSAR-23-jams.html"><strong>>PULSAR-23 jams</strong></a> (modular synth, 2025)
+        <br>
+        <a href="projects/niemandsland-live-sets.html"><strong>>Niemandsland</strong></a> (game/glitch sets, 2025)
+        <br>
+        <a href="projects/foret-fossile.html"><strong>>Forêt fossile</strong></a> (octet with electronics, 2024)
+        <br><br>
+        Older projects
+        <br>
+        <a href="projects/corps-resonants.html">>Corps résonants</a> (noise installation, 2023)
+        <br>
+        <a href="projects/sonnet.html">>Sonnet</a> (feedback and bari sax, 2023)
+        <br>
+        <a href="projects/handle-with-care.html">>Handle with care</a> (feedback instruments, 2023)
+        <br>
+        <a href="projects/cloches-et-boites.html">>Cloches et boîtes</a> (sound sculptures at DOC!, 2022)
+    </div>
+    <script>
+        let interactiveMode = false;
+        let hydra = null;
+        const canvas = document.getElementById("myCanvas");
+        const btn = document.getElementById("interactiveBtn");
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        function initHydra() {
+            resizeCanvas();
+            
+            hydra = new Hydra({
+                canvas: canvas,
+                detectAudio: false,
+            });    
+             
+            // Start with fallback video
+            s0.initVideo("https://upload.wikimedia.org/wikipedia/commons/6/6b/Dieta_digital_pode_ser_sa%C3%ADda_para_uso_seguro_da_internet%2C_diz_diretor_da_Safernet.webm");
+            
+            // Hydra visual code
+            src(s0)
+            .scrollY(.2)
+          //  .scrollX(.1)
+            .thresh(.7)
+            .luma(.125)
+            .blend(o0, 0.01)
+            .pixelate(() => Math.cos((time-30)*.2)*1000,() => Math.tan((time-30)*.001)*2000)
+            .out(o0);
+            
+            src(o0)
+            .blend(o1, 0.1)
+            .colorama(.1)
+            .out(o1);
+          
+            c=document.createElement("canvas")
+            c.width=c.height=2500  
+            s1.init({src:c})
+            c=c.getContext("2d")
+            c.fillStyle="white"
+            c.fillRect(0,0,2000,2000)  
+            c.fillStyle="black"
+            c.font="100px inconsolata"  
+            c.textAlign="center"
+            c.fillText("Welcome to my website", 1700, 2000);  
+            src(s1)
+            .pixelate(() => 1/(Math.sin(time*time) + (time/12) * Math.tan(Math.tan((5*time*time)/2) / (Math.cos(7*time) + 1/2)) + (time/6) * Math.tan(Math.sin(4*time) * Math.cos(3*time) + 1/10) * Math.sin(6*time))*800, 384)
+            .out(o2)
+
+            src(o2)
+            .layer(
+            src(o1)
+            .rotate(-Math.PI/2)
+            .saturate(0))
+            .out(o3);
+            
+            render(o3);
+        }
+
+        let camVideo = null;
+        let stream = null;
+
+    </script>
+    <script src="interactive-mode.js"></script>
+</body>
+</html>

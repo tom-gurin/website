@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Tom Gurin</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+   <link rel="stylesheet" href="main.css" />
+   <script src="https://unpkg.com/hydra-synth"></script>
+
+</head>
+<body>
+    <button id="interactiveBtn">[Enter Cam Mode]</button>
+    <canvas id="myCanvas" style="z-index:0"></canvas>
+    <div id="menu-container"></div>
+    <script src="menu.js"></script>
+    <div id="bioText">
+        <p><a href="https://docs.google.com/document/d/1evQISXhnfDllHLxyS_fTYrl7jo3SWo-datX12OsO300/edit?usp=sharing" target="_blank" rel="noopener">Curriculum vitae</a> (français)</p>
+        <p><a href="index.html">Tom Gurin</a> is a composer, multimedia artist, and carillonist. He holds a master's degree in music composition and computer music from the Haute école de musique de Genève and a bachelor's degree in music from Yale University. He also holds diplomas from the École Normale de Musique de Paris and the Royal Carillon School in Belgium. He studied composition privately with Allain Gaussin in Paris.</p>
+        He is a previous resident at the Cité internationale des arts in Paris, a <a href="https://leenaards.ch/prix-tremplin/" target="_blank" rel="noopener">Tremplin Leenaards / HEM Prize</a> winner, a Mortimer Hays-Brandeis Traveling Fellowship recipient, a Fulbright Scholar, a Harriet Hale Woolley Scholar, and a Fellow of the Belgian-American Educational Foundation.</p>
+        <p>He has presented his work in cabaret shows, at art galleries such as Paris' DOC artspace, and at contemporary music festivals including Archipel Festival in Geneva, IlSUONO Contemporary Music Week in Italy, the American Conservatory in Fontainebleau, where he received the Marion Tournon-Branley prize, and more.</p>
+        <p>Gurin also composes music for the <a href="carillon.html">carillon</a>. His new Angélus melodies for the Perpignan cathedral (2023) can be heard daily throughout the city.</p>
+        <p>Gurin served as Duke University Chapel Carillonneur until summer 2021, when he accepted a Fulbright award to study in Paris. In May 2021, he performed the dedicatory recital of the new carillon at North Carolina State University—the first traditionally-made American carillon in over fifty years. He has been a professional member of the Guild of Carillonneurs in North America since 2017. He has performed on over one hundred carillons around the world and is a frequent guest recitalist in Europe. He was co-chair of the student-led <a href="http://yalecarillon.org/" target="_blank" rel="noopener noreferrer">Yale University Guild of Carillonneurs</a>.</p>
+        <p><a href="contact.html">Contact Tom Gurin online</a></p>
+    </div>
+    <script>
+        let interactiveMode = false;
+        let hydra = null;
+        const canvas = document.getElementById("myCanvas");
+        const btn = document.getElementById("interactiveBtn");
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        function initHydra() {
+            resizeCanvas();
+            
+            hydra = new Hydra({
+                canvas: canvas,
+                detectAudio: false,
+            });    
+             
+            // Start with fallback video
+            s0.initVideo("https://upload.wikimedia.org/wikipedia/commons/6/6b/Dieta_digital_pode_ser_sa%C3%ADda_para_uso_seguro_da_internet%2C_diz_diretor_da_Safernet.webm");
+            
+            // Hydra visual code
+            src(s0)
+            .thresh(.7)
+            .luma(.125)
+            .blend(o0, 0.01)
+            .pixelate(() => Math.cos((time-30)*.02)*500,() => Math.tan((time-30)*.0001)*1000)
+        //    .out(o0);
+            
+         //   src(o0)
+            .blend(o1, 0.1)
+            .colorama(.1)
+            .out(o1);
+          
+            src(s0)
+            .scrollX(-.6,0)
+            .thresh(.6)
+            .pixelate(200, 100)
+            .modulate(o3, 0.03)
+            .invert(1)   
+            .out(o2);
+            
+            src(o2)
+            .layer(
+            src(o1)
+            .rotate(Math.PI)
+            .saturate(0))
+            .out(o3);
+            
+            render(o3);
+        }
+
+        let camVideo = null;
+        let stream = null;
+
+    </script>
+    <script src="interactive-mode.js"></script>
+</body>
+</html>

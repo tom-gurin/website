@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Tom Gurin</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+   <link rel="stylesheet" href="../main.css" />
+   <script src="https://unpkg.com/hydra-synth"></script>
+
+</head>
+<body>
+    <button id="interactiveBtn">[Enter Cam Mode]</button>
+    <canvas id="myCanvas" style="z-index:0"></canvas>
+    <div id="menu-container"></div>
+    <script src="../menu.js"></script>
+    <br><br><br><br>
+    <div class="youtubeWrapper">
+    <iframe
+         width="560" height="315" src="https://www.youtube.com/embed/nf4valyIqfw?si=iXnakF4_RGQNb4_M" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+    </iframe>
+    </div>
+    <div id="projectText">
+        <p>
+        Touch-sensitive, multimedia / noise installation & performance
+        <br><br>
+        Performed at the Cité internationale des arts (Paris), November 29, 2023
+        <br><br>
+        Owen Moran, performer
+        </p>
+    <script>
+        let interactiveMode = false;
+        let hydra = null;
+        const canvas = document.getElementById("myCanvas");
+        const btn = document.getElementById("interactiveBtn");
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        function initHydra() {
+            resizeCanvas();
+            
+            hydra = new Hydra({
+                canvas: canvas,
+                detectAudio: false,
+            });    
+             
+            // Start with fallback video
+            s0.initVideo("https://upload.wikimedia.org/wikipedia/commons/6/6b/Dieta_digital_pode_ser_sa%C3%ADda_para_uso_seguro_da_internet%2C_diz_diretor_da_Safernet.webm");
+            
+            // Hydra visual code
+            src(s0)
+            .thresh(.7)
+            .luma(.125)
+            .blend(o0, 0.01)
+            .pixelate(() => Math.cos((time-30)*.02)*500,() => Math.tan((time-30)*.0001)*1000)
+            .out(o0);
+            
+            src(o0)
+            .blend(o1, 0.1)
+            .colorama(.1)
+            .out(o1);
+          
+            solid(.1,.1,.1,0)
+            .layer(
+            src(o1)
+            .rotate(Math.PI)
+            .saturate(0))
+            .out(o2);
+            
+            render(o2);
+        }
+
+        let camVideo = null;
+        let stream = null;
+
+    </script>
+    <script src="../interactive-mode.js"></script>
+</body>
+</html>

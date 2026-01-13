@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Tom Gurin</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+   <link rel="stylesheet" href="main.css" />
+   <script src="https://unpkg.com/hydra-synth"></script>
+
+</head>
+<body>
+    <button id="interactiveBtn">[Enter Cam Mode]</button>
+    <canvas id="myCanvas" style="z-index:0"></canvas>
+    <div id="menu-container"></div>
+    <script src="menu.js"></script>
+     <div id="bioText">
+        <p>Carillon: a musical instrument composed of 23 or more tuned bronze bells connected to a double keyboard that allows expression through variation of touch via manual batons and foot pedals.</p>
+        <p>Gurin served as Duke University Chapel Carillonneur from 2019-2021. In 2021, he consulted on and performed the dedicatory recital for the new carillon at North Carolina State University.
+        </p>
+        <p>He won first prize in the 2022 Perpignan (France) Carillon Composition Competition. Several of his carillon works have been published by the Guild of Carillonneurs in North America and by Beiaardcentrum Nederland.
+        </p>
+        <p>Gurin graduated “With Great Distinction” from the Royal Carillon School of Belgium as a United States Fellow of the Belgian American Educational Foundation. He co-chaired the Yale University Guild of Carillonneurs and has been a member of the Guild of Carillonneurs in North America since 2017.</p>
+        <p>For guest recitals and compositions: <a href=contact.html>contact him online.</a></p>
+    </div>
+    <br>
+    <div class="youtubeWrapper">
+    <iframe
+        src="https://www.youtube.com/embed/UiB6ggaI0JQ"
+        allowfullscreen>
+    </iframe>
+    </div>
+    <div class="youtubeWrapper">
+    <iframe
+        src="https://www.youtube.com/embed/sGTO8hSMmWI">
+    </iframe>
+    </div>
+     <div class="youtubeWrapper">
+    <iframe
+        src="https://www.youtube.com/embed/JdtE0qw442Q">
+    </iframe>
+    </div>
+    <div class="headerB">
+    <p>Selected carillon compositions</p>
+    </div>
+    <div class="soundCloudWrapper">
+    <p>All Frequencies</p>
+    <audio controls controlsList="nodownload noplaybackrate" style="width: 100%;">
+    <source src="https://github.com/tom-gurin/website/releases/download/v1.0-audio/all-frequencies.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+    </audio>
+    </div>
+    <div class="soundCloudWrapper">
+        <p>New Angélus - Perpignan (automatic play)</p>
+    <audio controls controlsList="nodownload noplaybackrate" style="width: 100%;">
+    <source src="https://github.com/tom-gurin/website/releases/download/v1.0-audio/angelus.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+    </audio>
+    </div>
+    <div class="soundCloudWrapper">
+        <p>At Rain-Starred Windows</p>
+    <audio controls controlsList="nodownload noplaybackrate" style="width: 100%;">
+    <source src="https://github.com/tom-gurin/website/releases/download/v1.0-audio/at-rain-starred-windows.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+    </audio>
+    </div>
+    <script>
+        let interactiveMode = false;
+        let hydra = null;
+        const canvas = document.getElementById("myCanvas");
+        const btn = document.getElementById("interactiveBtn");
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        function initHydra() {
+            resizeCanvas();
+            
+            hydra = new Hydra({
+                canvas: canvas,
+                detectAudio: false,
+            });    
+             
+            // Start with fallback video
+            s0.initVideo("https://upload.wikimedia.org/wikipedia/commons/6/6b/Dieta_digital_pode_ser_sa%C3%ADda_para_uso_seguro_da_internet%2C_diz_diretor_da_Safernet.webm");
+            
+            // Hydra visual code 
+
+           src(s0)
+            .thresh(.7) //good for normal lighting
+            .luma(.125)
+            .blend(o0, 0.01)
+            .pixelate(() => Math.cos((time-30)*.02)*500,() => Math.tan((time-30)*.0001)*1000)
+            .out(o0);
+            
+            src(o0)
+            .blend(o1, 0.1)
+            .colorama(.1)
+            .out(o1);
+          
+            solid(.1,.1,.1,0)
+            .layer(
+            src(o1)
+            .rotate(0)
+            .saturate(0))
+            .out(o2);
+            
+            render(o2);
+        };
+            
+        let camVideo = null;
+        let stream = null;
+
+    </script>
+    <script src="interactive-mode.js"></script>
+</body>
+</html>
