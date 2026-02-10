@@ -43,8 +43,12 @@
                 detectAudio: false,
             });    
              
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+             
             // Start with fallback video
-            s0.initVideo("https://upload.wikimedia.org/wikipedia/commons/6/6b/Dieta_digital_pode_ser_sa%C3%ADda_para_uso_seguro_da_internet%2C_diz_diretor_da_Safernet.webm");
+            if (!isIOS) {
+                s0.initVideo("https://upload.wikimedia.org/wikipedia/commons/6/6b/Dieta_digital_pode_ser_sa%C3%ADda_para_uso_seguro_da_internet%2C_diz_diretor_da_Safernet.webm");
+            }
             
             // Hydra visual code
             src(s0)
