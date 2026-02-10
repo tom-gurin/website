@@ -41,8 +41,12 @@ function enableInteractiveMode() {
                 camVideo = null;
             }
             
-            s0.initVideo("https://upload.wikimedia.org/wikipedia/commons/6/6b/Dieta_digital_pode_ser_sa%C3%ADda_para_uso_seguro_da_internet%2C_diz_diretor_da_Safernet.webm");
-            
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+    
+            if (!isIOS) {
+                s0.initVideo("https://upload.wikimedia.org/wikipedia/commons/6/6b/Dieta_digital_pode_ser_sa%C3%ADda_para_uso_seguro_da_internet%2C_diz_diretor_da_Safernet.webm");
+            }
+
             btn.textContent = "[Enter Cam Mode]";
             btn.classList.remove("active");
             interactiveMode = false;
