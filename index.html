@@ -61,6 +61,7 @@
         function initHydra() {
             resizeCanvas();
             
+            try {
             hydra = new Hydra({
                 canvas: canvas,
                 detectAudio: false,
@@ -106,8 +107,13 @@
             .out(o3);
             
             render(o3);
-        }
 
+        } catch(e) {
+            console.error("Hydra initialization failed:", e);
+            canvas.style.display = 'none'; // Hide if Hydra fails
+            hydra = null;
+        }
+        }
         let camVideo = null;
         let stream = null;
 
