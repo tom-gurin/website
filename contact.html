@@ -56,15 +56,16 @@
             .out(o1);
           
             c=document.createElement("canvas")
-            c.width=c.height=2000  // Increased from 400 to 2000
+            c.width=2000
+            c.height=2000
             s1.init({src:c})
             c=c.getContext("2d")
             c.fillStyle="white"
-            c.fillRect(0,0,2000,2000)  // Updated to match new size
+            c.fillRect(0,0,2000,2000)
             c.fillStyle="black"
-            c.font="150px inconsolata"  // Scaled up from 10px to 50px (5x larger)
+            c.font="130px inconsolata"
             c.textAlign="center"
-            c.fillText("thomas.gurin@gmail.com", 1000, 1200);  // Updated coordinates (5x)
+            c.fillText("thomas.gurin[at]gmail.com", 1000, 1200);
             src(s1)
             .scale(.85)
             .pixelate(() => 1/(Math.sin(time*time) + (time/12) * Math.tan(Math.tan((5*time*time)/2) / (Math.cos(7*time) + 1/2)) + (time/6) * Math.tan(Math.sin(4*time) * Math.cos(3*time) + 1/10) * Math.sin(6*time))*800, 384)
